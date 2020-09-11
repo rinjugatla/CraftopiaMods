@@ -8,6 +8,7 @@ using BepInEx;
 using HarmonyLib;
 using Oc;
 using Oc.Em;
+using UnityEngine;
 
 namespace SandBox
 {
@@ -45,6 +46,18 @@ namespace SandBox
                 UnityEngine.Debug.Log("消費数を+1");
             }
 
+        }
+    }
+
+    /// <summary>
+    /// キャラクタのジャンプにフック
+    /// </summary>
+    [HarmonyPatch(typeof(OcCharacter), "jumped")]
+    public class MyOcCharacter
+    {
+        static void Postfix()
+        {
+            UnityEngine.Debug.Log($"jumped!!!!");
         }
     }
 }
