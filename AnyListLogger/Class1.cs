@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BepInEx;
 using HarmonyLib;
+using Oc.Item;
 
 namespace AnyListLogger
 {
@@ -20,6 +21,11 @@ namespace AnyListLogger
         {
             UnityEngine.Debug.Log($"{PluginName} : {PluginVersion}");
             Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+        }
+
+        [HarmonyPatch(typeof(OcItemDataMng), "SetupCraftableItems")]
+        public class CraftableItemLogger
+        {
         }
     }
 }
