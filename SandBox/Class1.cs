@@ -60,4 +60,16 @@ namespace SandBox
             UnityEngine.Debug.Log($"jumped!!!!");
         }
     }
+
+    /// <summary>
+    /// 剣を振るタイミングにフック(連続攻撃には非対応)
+    /// </summary>
+    [HarmonyPatch(typeof(AsPl_AttackSword0), "enter")]
+    public class AsPl_AttackSword0_enter
+    {
+        static void Postfix()
+        {
+            UnityEngine.Debug.Log($"Sword!!!!");
+        }
+    }
 }
