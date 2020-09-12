@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftopiaMods", "CraftopiaM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandBox", "SandBox\SandBox.csproj", "{FD5D563E-59A7-4AED-B45D-4CF32C5075F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnyListLogger", "AnyListLogger\AnyListLogger.csproj", "{ACE00F10-C07B-42F3-BE64-0D495F461815}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FD5D563E-59A7-4AED-B45D-4CF32C5075F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD5D563E-59A7-4AED-B45D-4CF32C5075F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD5D563E-59A7-4AED-B45D-4CF32C5075F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACE00F10-C07B-42F3-BE64-0D495F461815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACE00F10-C07B-42F3-BE64-0D495F461815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACE00F10-C07B-42F3-BE64-0D495F461815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACE00F10-C07B-42F3-BE64-0D495F461815}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
