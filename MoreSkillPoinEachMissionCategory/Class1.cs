@@ -48,7 +48,7 @@ namespace MoreSkillPoinEachMissionCategory
                 UnityEngine.Debug.Log($"同カテゴリの未達成ミッション: {mission.ID} {mission.Title} {mission.IsRewardTaken}");
 
             // 同一カテゴリの未達成ミッション数
-            if (MyUtility.GetNotCleardMission(__instance.Category) == 0)
+            if (MyUtility.GetNotCleardMissionInCategory(__instance.Category) == 0)
             {
                 //UnityEngine.Debug.Log("同カテゴリのミッションをすべて達成");
                 OcPlMaster.Inst.SkillCtrl.AddSkillPoint(1);
@@ -99,28 +99,36 @@ namespace MoreSkillPoinEachMissionCategory
     {
         static void Postfix(OcUI_NewSkillTree __instance)
         {
-            // ミッションカテゴリIDを取得
-            IEnumerable<int> categoriesIds = OcMissionManager.Inst.AllCategory().Select(n => n.ID);
-            // カテゴリごとにクリア状況を調べる
-            int cleardCategory = 0;
-            foreach (var categoryId in categoriesIds)
-            {
-                if (MyUtility.GetNotCleardMission(categoryId) == 0)
-                    cleardCategory += 1;
-            }
+            int cleardCategoryCount = MyUtility.GetNotCleardMissionInAllCategory();
             // クリア済みカテゴリ分ポイントを付与
-            OcPlMaster.Inst.SkillCtrl.AddSkillPoint(cleardCategory);
+            OcPlMaster.Inst.SkillCtrl.AddSkillPoint(cleardCategoryCount);
         }
     }
 
     internal class MyUtility
     {
         /// <summary>
+        /// すべてのミッションカテゴリのクリア数を取得
+        /// </summary>
+        /// <returns></returns>
+        internal static int GetNotCleardMissionInAllCategory()
+        {
+            IEnumerable<int> categoryIds = OcMissionManager.Inst.AllCategory().Select(n => n.ID);
+            int result = 0;
+            foreach (var id in categoryIds)
+            {
+                if (GetNotCleardMissionInCategory(id) == 0)
+                    result += 1;
+            }
+            return result;
+        }
+
+        /// <summary>
         /// 同一カテゴリの未クリアミッション数を取得
         /// </summary>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        internal static int GetNotCleardMission(int categoryId)
+        internal static int GetNotCleardMissionInCategory(int categoryId)
         {
             Mission[] missions = OcMissionManager.Inst.GetCategoryMissions(categoryId);
             if (missions == null)
