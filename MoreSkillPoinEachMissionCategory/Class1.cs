@@ -28,19 +28,6 @@ namespace MoreSkillPoinEachMissionCategory
         }
     }
 
-    [HarmonyPatch(typeof(OcMissionManager), "Start")]
-    public class OcMissionManager_Start
-    {
-        internal static OcMissionManager OcMissionManager;
-        internal static int[] MissionCategories;
-
-        static void Postfix(OcMissionManager __instance)
-        {
-            OcMissionManager = __instance;
-            Mission[] missions = Traverse.Create(__instance).Field("validMissionList").GetValue<Mission[]>();
-        }
-    }
-
     /// <summary>
     /// 同一カテゴリのミッションを達成した際にスキルポイントを1付与
     /// </summary>
@@ -54,7 +41,7 @@ namespace MoreSkillPoinEachMissionCategory
 
             UnityEngine.Debug.Log($"達成したミッション: {__instance.ID} {__instance.Title} {__instance.IsRewardTaken}");
             //// 同じカテゴリのミッション
-            Mission[] missionsInCategory = OcMissionManager_Start.OcMissionManager.GetCategoryMissions(__instance.Category);
+            Mission[] missionsInCategory = OcMissionManager.Inst.GetCategoryMissions(__instance.Category);
             foreach (var mission in missionsInCategory.Where(n => n.IsRewardTaken == false && n != __instance))
                 UnityEngine.Debug.Log($"同カテゴリの未達成ミッション: {mission.ID} {mission.Title} {mission.IsRewardTaken}");
 
