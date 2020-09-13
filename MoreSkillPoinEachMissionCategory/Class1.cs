@@ -99,7 +99,7 @@ namespace MoreSkillPoinEachMissionCategory
     {
         static void Postfix(OcUI_NewSkillTree __instance)
         {
-            int cleardCategoryCount = MyUtility.GetNotCleardMissionInAllCategory();
+            int cleardCategoryCount = MyUtility.GetCleardMissionInAllCategory();
             // クリア済みカテゴリ分ポイントを付与
             OcPlMaster.Inst.SkillCtrl.AddSkillPoint(cleardCategoryCount);
         }
@@ -111,7 +111,7 @@ namespace MoreSkillPoinEachMissionCategory
         /// すべてのミッションカテゴリのクリア数を取得
         /// </summary>
         /// <returns></returns>
-        internal static int GetNotCleardMissionInAllCategory()
+        internal static int GetCleardMissionInAllCategory()
         {
             IEnumerable<int> categoryIds = OcMissionManager.Inst.AllCategory().Select(n => n.ID);
             int result = 0;
