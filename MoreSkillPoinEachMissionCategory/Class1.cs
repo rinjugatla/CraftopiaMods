@@ -75,7 +75,7 @@ namespace MoreSkillPoinEachMissionCategory
 
             // リセットにかかる費用
             ref int _GoldCost = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, int>(__instance, "_GoldCost");
-            _GoldCost = 0; // (OcPlMaster.Inst.CanFreeResetSkill ? 0 : 100000);
+            _GoldCost = (OcPlMaster.Inst.CanFreeResetSkill ? 0 : 100000);
             ref TextMeshProUGUI goldCostText = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, TextMeshProUGUI>(__instance, "goldCostText");
             goldCostText.text = string.Format("{0}", _GoldCost);
             // リセットで得られるポイント
