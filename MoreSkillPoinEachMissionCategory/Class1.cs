@@ -11,6 +11,8 @@ using Oc.Missions;
 using Oc;
 using System.Reflection;
 using Oc.Skills;
+using SR;
+using TMPro;
 
 namespace MoreSkillPoinEachMissionCategory
 {
@@ -46,12 +48,46 @@ namespace MoreSkillPoinEachMissionCategory
                 UnityEngine.Debug.Log($"同カテゴリの未達成ミッション: {mission.ID} {mission.Title} {mission.IsRewardTaken}");
 
             // 同一カテゴリの未達成ミッション数
-            int notCleardMissionCount = missionsInCategory.Where(n => n.IsRewardTaken == false && n != __instance).Count();
-            if (notCleardMissionCount == 0)
+            if (MyUtility.GetNotCleardMission(__instance.Category) == 0)
             {
                 //UnityEngine.Debug.Log("同カテゴリのミッションをすべて達成");
                 OcPlMaster.Inst.SkillCtrl.AddSkillPoint(1);
             }
+        }
+    }
+
+    /// <summary>
+    /// スキル画面のスキルリセットボタンの処理
+    /// </summary>
+    [HarmonyPatch(typeof(OcUI_NewSkillTree), "TryOpenSkillResetPopup")]
+    public class OcUI_NewSkillTree_TryOpenSkillResetPopup
+    {
+        static bool Prefix(OcUI_NewSkillTree __instance)
+        {
+            GameObject skillResetPopup = Traverse.Create(__instance).Field("skillResetPopup").GetValue<GameObject>();
+            skillResetPopup.SetActive(true);
+
+            int num = (int)(OcPlMaster.Inst.PlLevelCtrl.Level.Value - 1) * OcDefine.INCREASE_SKILLPOINT_BY_LEVEL_UP;
+            int currentAssignedSP = SingletonMonoBehaviour<OcSkillManager>.Inst.CurrentAssignedSP;
+            int skillPoint = OcPlMaster.Inst.SkillCtrl.SkillPoint;
+            int num2 = num - (currentAssignedSP + skillPoint);
+
+            // リセットにかかる費用
+            ref int _GoldCost = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, int>(__instance, "_GoldCost");
+            _GoldCost = 0; // (OcPlMaster.Inst.CanFreeResetSkill ? 0 : 100000);
+            ref TextMeshProUGUI goldCostText = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, TextMeshProUGUI>(__instance, "goldCostText");
+            goldCostText.text = string.Format("{0}", _GoldCost);
+            // リセットで得られるポイント
+            ref int _GainSkillPoint = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, int>(__instance, "_GainSkillPoint");
+            _GainSkillPoint = currentAssignedSP + num2;
+            ref TextMeshProUGUI gainSkillPointText = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, TextMeshProUGUI>(__instance, "gainSkillPointText");
+            gainSkillPointText.text = string.Format("{0}", _GainSkillPoint);
+
+            bool value = OcPlMaster.Inst.Health.Money >= (long)_GoldCost;
+            OcUI_NewSkillTree.Inst.SetInteractable(value);
+            OcUI_NewSkillTree.Inst.TryGamepadSelect();
+
+            return false;
         }
     }
 
@@ -65,23 +101,34 @@ namespace MoreSkillPoinEachMissionCategory
         {
             // ミッションカテゴリIDを取得
             IEnumerable<int> categoriesIds = OcMissionManager.Inst.AllCategory().Select(n => n.ID);
-            // カテゴリごとにクリ状況を調べる
+            // カテゴリごとにクリア状況を調べる
             int cleardCategory = 0;
-            Mission[] missions;
-            int notCleardMissionCount;
             foreach (var categoryId in categoriesIds)
             {
-                missions = OcMissionManager.Inst.GetCategoryMissions(categoryId);
-                if (missions == null)
-                    continue;
-
-                notCleardMissionCount = missions.Where(n => n.IsRewardTaken == false).Count();
-                if (notCleardMissionCount == 0)
+                if (MyUtility.GetNotCleardMission(categoryId) == 0)
                     cleardCategory += 1;
             }
             // クリア済みカテゴリ分ポイントを付与
             OcPlMaster.Inst.SkillCtrl.AddSkillPoint(cleardCategory);
+        }
+    }
 
+    internal class MyUtility
+    {
+        /// <summary>
+        /// 同一カテゴリの未クリアミッション数を取得
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        internal static int GetNotCleardMission(int categoryId)
+        {
+            Mission[] missions = OcMissionManager.Inst.GetCategoryMissions(categoryId);
+            if (missions == null)
+                return -1;
+
+            int result = missions.Where(n => n.IsRewardTaken == false).Count();
+
+            return result;
         }
     }
 }
