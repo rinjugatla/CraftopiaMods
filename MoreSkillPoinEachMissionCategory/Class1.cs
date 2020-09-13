@@ -66,11 +66,12 @@ namespace MoreSkillPoinEachMissionCategory
         {
             GameObject skillResetPopup = Traverse.Create(__instance).Field("skillResetPopup").GetValue<GameObject>();
             skillResetPopup.SetActive(true);
-
-            int num = (int)(OcPlMaster.Inst.PlLevelCtrl.Level.Value - 1) * OcDefine.INCREASE_SKILLPOINT_BY_LEVEL_UP;
+            // 使用済みポイントと取得済みポイントの計算
+            int levelPoint = (int)(OcPlMaster.Inst.PlLevelCtrl.Level.Value - 1) * OcDefine.INCREASE_SKILLPOINT_BY_LEVEL_UP;
+            int missionPoint = MyUtility.GetCleardMissionInAllCategory();
             int currentAssignedSP = SingletonMonoBehaviour<OcSkillManager>.Inst.CurrentAssignedSP;
             int skillPoint = OcPlMaster.Inst.SkillCtrl.SkillPoint;
-            int num2 = num - (currentAssignedSP + skillPoint);
+            int num2 = (levelPoint + missionPoint) - (currentAssignedSP + skillPoint);
 
             // リセットにかかる費用
             ref int _GoldCost = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, int>(__instance, "_GoldCost");
@@ -88,20 +89,6 @@ namespace MoreSkillPoinEachMissionCategory
             OcUI_NewSkillTree.Inst.TryGamepadSelect();
 
             return false;
-        }
-    }
-
-    /// <summary>
-    /// スキルリセットした際にミッションカテゴリのクリア数分スキルポイントを付与
-    /// </summary>
-    [HarmonyPatch(typeof(OcUI_NewSkillTree), "TryResetSkill")]
-    public class OcUI_NewSkillTree_ResetAllSkills
-    {
-        static void Postfix(OcUI_NewSkillTree __instance)
-        {
-            int cleardCategoryCount = MyUtility.GetCleardMissionInAllCategory();
-            // クリア済みカテゴリ分ポイントを付与
-            OcPlMaster.Inst.SkillCtrl.AddSkillPoint(cleardCategoryCount);
         }
     }
 
