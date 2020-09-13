@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BepInEx;
 using HarmonyLib;
 using MapMagic;
+using Oc;
 using Oc.Item;
 using Oc.Missions;
 
@@ -49,7 +50,9 @@ namespace AnyListLogger
             }
         }
 
-
+        /// <summary>
+        /// ミッションリストをログファイルに出力
+        /// </summary>
         [HarmonyPatch(typeof(OcMissionManager), "Start")]
         public class OcMissionManagerLogger
         {
@@ -61,26 +64,10 @@ namespace AnyListLogger
                 {
                     foreach (var mission in missions)
                     {
-                        sw.WriteLine($"{mission.ID},{mission.Category},{mission.Title},{mission.Desc},{mission.IsRewardTaken}");
+                        sw.WriteLine($"{mission.ID},{mission.Category},{mission.Title},{mission.Desc},{mission.AchievementID},{mission.Achievement},{mission.hideFlags},{mission.RewardSkillID},{mission.RewardSkillPoint},{mission.TargetValue},{mission.WorldLevel}");
                     }
                 }
             }
         }
-
-
-        //[HarmonyPatch(typeof(Mission), "TryGetReward")]
-        //public class MissionTryGetReward
-        //{
-        //    static void Postfix(Mission __instance)
-        //    {
-        //        OcMissionManager
-        //        AccessTools.Method(OcMissionManager, )
-
-        //        // 同じカテゴリのミッションを取得
-        //        Traverse.Create(OcMissionManager).Field("_IsActivateCount").GetValue();
-
-        //        UnityEngine.Debug.Log($"{__instance.ID}: {__instance.Title}");
-        //    }
-        //}
     }
 }
