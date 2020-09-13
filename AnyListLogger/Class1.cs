@@ -55,7 +55,7 @@ namespace AnyListLogger
         {
             static void Postfix(OcMissionManager __instance)
             {
-                Mission[] missions = (Mission[])Traverse.Create(__instance).Field("validMissionList").GetValue();
+                Mission[] missions = Traverse.Create(__instance).Field("validMissionList").GetValue<Mission[]>();
 
                 using (StreamWriter sw = new StreamWriter(MissionLogFilepath, false, Encoding.UTF8))
                 {
@@ -66,9 +66,5 @@ namespace AnyListLogger
                 }
             }
         }
-
-
-
-
     }
 }
