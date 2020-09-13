@@ -21,7 +21,7 @@ namespace MoreSkillPoinEachMissionCategory
     {
         public const string PluginGuid = "me.rin_jugatla.craftopia.mod.MoreSkillPoinEachMissionCategory";
         public const string PluginName = "MoreSkillPoinEachMissionCategory";
-        public const string PluginVersion = "0.0.1";
+        public const string PluginVersion = "1.0.0";
 
         void Awake()
         {
