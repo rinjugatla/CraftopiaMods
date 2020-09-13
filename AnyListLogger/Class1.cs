@@ -50,7 +50,7 @@ namespace AnyListLogger
         }
 
 
-        [HarmonyPatch(typeof(OcMissionManager), "LoadData")]
+        [HarmonyPatch(typeof(OcMissionManager), "Start")]
         public class OcMissionManagerLogger
         {
             static void Postfix(OcMissionManager __instance)
@@ -66,5 +66,21 @@ namespace AnyListLogger
                 }
             }
         }
+
+
+        //[HarmonyPatch(typeof(Mission), "TryGetReward")]
+        //public class MissionTryGetReward
+        //{
+        //    static void Postfix(Mission __instance)
+        //    {
+        //        OcMissionManager
+        //        AccessTools.Method(OcMissionManager, )
+
+        //        // 同じカテゴリのミッションを取得
+        //        Traverse.Create(OcMissionManager).Field("_IsActivateCount").GetValue();
+
+        //        UnityEngine.Debug.Log($"{__instance.ID}: {__instance.Title}");
+        //    }
+        //}
     }
 }
