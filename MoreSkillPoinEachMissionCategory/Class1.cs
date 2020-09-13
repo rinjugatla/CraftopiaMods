@@ -58,27 +58,30 @@ namespace MoreSkillPoinEachMissionCategory
     /// <summary>
     /// スキルリセットした際にミッションカテゴリのクリア数分スキルポイントを付与
     /// </summary>
-    //[HarmonyPatch(typeof(OcUI_NewSkillTree), "ResetAllSkills")]
-    //public class OcUI_NewSkillTree_ResetAllSkills
-    //{
-    //    static void Postfix(OcUI_NewSkillTree __instance)
-    //    {
-    //        // ミッションカテゴリIDを取得
-    //        IEnumerable<int> categoriesIds = OcMissionManager.Inst.AllCategory().Select(n => n.ID);
-    //        // カテゴリごとにクリ状況を調べる
-    //        int cleardCategory = 0;
-    //        Mission[] missions;
-    //        int notCleardMissionCount;
-    //        foreach (var categoryId in categoriesIds)
-    //        {
-    //            missions = OcMissionManager.Inst.GetCategoryMissions(categoryId);
-    //            notCleardMissionCount = missions.Where(n => n.IsRewardTaken == false).Count();
-    //            if (notCleardMissionCount == 0)
-    //                cleardCategory += 1;
-    //        }
-    //        // クリア済みカテゴリ分ポイントを付与
-    //        OcPlMaster.Inst.SkillCtrl.AddSkillPoint(cleardCategory);
+    [HarmonyPatch(typeof(OcUI_NewSkillTree), "TryResetSkill")]
+    public class OcUI_NewSkillTree_ResetAllSkills
+    {
+        static void Postfix(OcUI_NewSkillTree __instance)
+        {
+            // ミッションカテゴリIDを取得
+            IEnumerable<int> categoriesIds = OcMissionManager.Inst.AllCategory().Select(n => n.ID);
+            // カテゴリごとにクリ状況を調べる
+            int cleardCategory = 0;
+            Mission[] missions;
+            int notCleardMissionCount;
+            foreach (var categoryId in categoriesIds)
+            {
+                missions = OcMissionManager.Inst.GetCategoryMissions(categoryId);
+                if (missions == null)
+                    continue;
 
-    //    }
-    //}
+                notCleardMissionCount = missions.Where(n => n.IsRewardTaken == false).Count();
+                if (notCleardMissionCount == 0)
+                    cleardCategory += 1;
+            }
+            // クリア済みカテゴリ分ポイントを付与
+            OcPlMaster.Inst.SkillCtrl.AddSkillPoint(cleardCategory);
+
+        }
+    }
 }
