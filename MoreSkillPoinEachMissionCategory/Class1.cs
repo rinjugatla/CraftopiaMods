@@ -48,7 +48,7 @@ namespace MoreSkillPoinEachMissionCategory
                 UnityEngine.Debug.Log($"同カテゴリの未達成ミッション: {mission.ID} {mission.Title} {mission.IsRewardTaken}");
 
             // 同一カテゴリの未達成ミッション数
-            if (MyUtility.GetNotCleardMissionInCategory(__instance.Category) == 0)
+            if (MyUtility.IsCompleatMissionCategory(__instance.Category))
             {
                 //UnityEngine.Debug.Log("同カテゴリのミッションをすべて達成");
                 OcPlMaster.Inst.SkillCtrl.AddSkillPoint(1);
@@ -117,7 +117,7 @@ namespace MoreSkillPoinEachMissionCategory
             int result = 0;
             foreach (var id in categoryIds)
             {
-                if (GetNotCleardMissionInCategory(id) == 0)
+                if (IsCompleatMissionCategory(id))
                     result += 1;
             }
             return result;
@@ -128,13 +128,13 @@ namespace MoreSkillPoinEachMissionCategory
         /// </summary>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        internal static int GetNotCleardMissionInCategory(int categoryId)
+        internal static bool IsCompleatMissionCategory(int categoryId)
         {
             Mission[] missions = OcMissionManager.Inst.GetCategoryMissions(categoryId);
             if (missions == null)
-                return -1;
-
-            int result = missions.Where(n => n.IsRewardTaken == false).Count();
+                return false;
+            // 未クリア数が0ならばすべてクリア済み
+            bool result = missions.Where(n => n.IsRewardTaken == false).Count() == 0;
 
             return result;
         }
