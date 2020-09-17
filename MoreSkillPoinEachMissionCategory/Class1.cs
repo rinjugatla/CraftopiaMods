@@ -1,25 +1,23 @@
-﻿using System;
+﻿using BepInEx;
+using HarmonyLib;
+using Oc;
+using Oc.Missions;
+using Oc.Skills;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using HarmonyLib;
-using Assembly_CSharp;
-using UnityEngine;
-using Oc.Missions;
-using Oc;
 using System.Reflection;
-using Oc.Skills;
-using SR;
 using TMPro;
+using UnityEngine;
 
+/// <summary>
+/// ミッションカテゴリ毎にスキルポイントを1獲得
+/// </summary>
 namespace MoreSkillPoinEachMissionCategory
 {
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     public class ExamplePlugin : BaseUnityPlugin
     {
-        public const string PluginGuid = "me.rin_jugatla.craftopia.mod.MoreSkillPoinEachMissionCategory";
+        public const string PluginGuid = "me.rin_jugatla.craftopia.mod.MoreSkillPointEachMissionCategory";
         public const string PluginName = "MoreSkillPoinEachMissionCategory";
         public const string PluginVersion = "1.0.0";
 
