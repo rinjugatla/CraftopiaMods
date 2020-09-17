@@ -11,6 +11,7 @@ using MapMagic;
 using Oc;
 using Oc.Item;
 using Oc.Missions;
+using Oc.Skills;
 
 namespace AnyListLogger
 {
@@ -19,10 +20,11 @@ namespace AnyListLogger
     {
         private const string PluginGuid = "2AA56D88-A06D-4790-89E7-5192585E1A41";
         private const string PluginName = "AnyListLogger";
-        private const string PluginVersion = "0.0.1";
+        private const string PluginVersion = "0.0.2";
 
         private const string ItemLogFilepath = @"E:\SteamLibrary\steamapps\common\Craftopia\Log\ItemList.csv";
         private const string MissionLogFilepath = @"E:\SteamLibrary\steamapps\common\Craftopia\Log\MissionList.csv";
+        private const string SkillLogFilepath = @"E:\SteamLibrary\steamapps\common\Craftopia\Log\SkillList.csv";
 
         void Awake()
         {
@@ -65,6 +67,27 @@ namespace AnyListLogger
                     foreach (var mission in missions)
                     {
                         sw.WriteLine($"{mission.ID},{mission.Category},{mission.Title},{mission.Desc},{mission.AchievementID},{mission.Achievement},{mission.hideFlags},{mission.RewardSkillID},{mission.RewardSkillPoint},{mission.TargetValue},{mission.WorldLevel}");
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// スキルリストをログファイルに出力
+        /// </summary>
+        [HarmonyPatch(typeof(OcSkillManager), "Start")]
+        public class OcSkillManagerLogger
+        {
+            static void Postfix(OcSkillManager __instance)
+            {
+                SoSkillDataList skillList = Traverse.Create(__instance).Field("skillList").GetValue<SoSkillDataList>();
+                OcSkill[] skills = skillList.GetAll();
+
+                using (StreamWriter sw = new StreamWriter(SkillLogFilepath, false, Encoding.UTF8))
+                {
+                    foreach (var skill in skills)
+                    {
+                        sw.WriteLine($"{skill.ID},{skill.Category},{skill.SkillCategoryName},{skill.Tier},{skill.SkillName},{skill.MaxLevel},{skill.OriginDesc},{skill.SkillDesc}");
                     }
                 }
             }
