@@ -12,6 +12,7 @@ using Oc;
 using Oc.Item;
 using Oc.Missions;
 using Oc.Skills;
+using SR;
 
 namespace AnyListLogger
 {
@@ -24,7 +25,7 @@ namespace AnyListLogger
 
         private const string ItemLogFilepath = @"E:\SteamLibrary\steamapps\common\Craftopia\Log\ItemList.csv";
         private const string MissionLogFilepath = @"E:\SteamLibrary\steamapps\common\Craftopia\Log\MissionList.csv";
-        private const string SkillLogFilepath = @"E:\SteamLibrary\steamapps\common\Craftopia\Log\SkillList.csv";
+        private const string SkillLogFilepath = @"E:\SteamLibrary\steamapps\common\Craftopia\Log\SkillList:LANGUAGE.tsv";
 
         void Awake()
         {
@@ -80,14 +81,26 @@ namespace AnyListLogger
         {
             static void Postfix(OcSkillManager __instance)
             {
-                SoSkillDataList skillList = Traverse.Create(__instance).Field("skillList").GetValue<SoSkillDataList>();
-                OcSkill[] skills = skillList.GetAll();
+                string[] language = new string[] { "Japanese", "English", "Chinese (Simplified)" };
+                string[] filepathFix = new string[] { "Jp", "En", "Cn" };
 
-                using (StreamWriter sw = new StreamWriter(SkillLogFilepath, false, Encoding.UTF8))
+                string header = "ID\tCategory\tCategoryName\tTier\tSkillName\tMaxLevel\tDescription\tIconName";
+                for (int i = 0; i < language.Length; i++)
                 {
-                    foreach (var skill in skills)
+                    LanguageManager.ChangeLanguage(language[i]);
+                    SoSkillDataList skillList = Traverse.Create(__instance).Field("skillList").GetValue<SoSkillDataList>();
+                    OcSkill[] skills = skillList.GetAll();
+
+                    using (StreamWriter sw = new StreamWriter(SkillLogFilepath.Replace(":LANGUAGE", filepathFix[i]), false, Encoding.UTF8))
                     {
-                        sw.WriteLine($"{skill.ID},{skill.Category},{skill.SkillCategoryName},{skill.Tier},{skill.SkillName},{skill.MaxLevel},{skill.OriginDesc},{skill.SkillDesc}");
+                        sw.WriteLine(header);
+                        foreach (var skill in skills)
+                        {
+                            if (skill.Category == OcPlSkillCategory.None)
+                                continue;
+
+                            sw.WriteLine($"{skill.ID}\t{skill.Category}\t{skill.SkillCategoryName}\t{skill.Tier}\t{skill.SkillName}\t{skill.MaxLevel}\t{skill.OriginDesc}\t{skill.SkillIcon.name}");
+                        }
                     }
                 }
             }
