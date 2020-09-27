@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandBox", "SandBox\SandBox.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnyListLogger", "AnyListLogger\AnyListLogger.csproj", "{ACE00F10-C07B-42F3-BE64-0D495F461815}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreSkillPoinEachMissionCategory", "MoreSkillPoinEachMissionCategory\MoreSkillPoinEachMissionCategory.csproj", "{F94BD09D-CE8D-400E-927B-906A0A50A4DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreSkillPointEachMissionCategory", "MoreSkillPoinEachMissionCategory\MoreSkillPointEachMissionCategory.csproj", "{F94BD09D-CE8D-400E-927B-906A0A50A4DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

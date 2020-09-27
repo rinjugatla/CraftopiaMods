@@ -12,7 +12,7 @@ using UnityEngine;
 /// <summary>
 /// ミッションカテゴリ毎にスキルポイントを1獲得
 /// </summary>
-namespace MoreSkillPoinEachMissionCategory
+namespace MoreSkillPointEachMissionCategory
 {
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     public class ExamplePlugin : BaseUnityPlugin
