@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// ミッションカテゴリ毎にスキルポイントを1獲得
@@ -75,15 +76,16 @@ namespace MoreSkillPointEachMissionCategory
             ref int _GoldCost = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, int>(__instance, "_GoldCost");
             _GoldCost = (OcPlMaster.Inst.CanFreeResetSkill ? 0 : 100000);
             ref TextMeshProUGUI goldCostText = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, TextMeshProUGUI>(__instance, "goldCostText");
-            goldCostText.text = string.Format("{0}", _GoldCost);
+            goldCostText.text = string.Format("{0}", _GoldCost.ToString("n0"));
             // リセットで得られるポイント
             ref int _GainSkillPoint = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, int>(__instance, "_GainSkillPoint");
             _GainSkillPoint = currentAssignedSP + num2;
             ref TextMeshProUGUI gainSkillPointText = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, TextMeshProUGUI>(__instance, "gainSkillPointText");
             gainSkillPointText.text = string.Format("{0}", _GainSkillPoint);
 
-            bool value = OcPlMaster.Inst.Health.Money >= (long)_GoldCost;
-            OcUI_NewSkillTree.Inst.SetInteractable(value);
+            bool flag = OcPlMaster.Inst.HealthPl.Money >= (long)_GoldCost;
+            ref Button skillResetButton = ref AccessTools.FieldRefAccess<OcUI_NewSkillTree, Button>(__instance, "skillResetButton");
+            skillResetButton.SetInteractable(flag && OcPlMaster.Inst.SkillCtrl.ResettableAllSkills());
             OcUI_NewSkillTree.Inst.TryGamepadSelect();
 
             return false;
