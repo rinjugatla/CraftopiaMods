@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BepInEx;
 using HarmonyLib;
-using MapMagic;
 using Oc;
 using Oc.Item;
 using Oc.Missions;
@@ -41,12 +40,15 @@ namespace AnyListLogger
         {
             static bool Prefix(OcItemDataMng __instance, ref ItemData[] ___validItemDataList)
             {
+                StringBuilder sb = new StringBuilder("ID,アイテム名,カテゴリ名,アイコン名\r\n");
+                foreach (var item in ___validItemDataList)
+                {
+                    sb.Append($"{item.Id},{item.DisplayName},{item.ItemCategory},{item.ItemImage_Icon.name}\r\n");
+                }
+
                 using (StreamWriter sw = new StreamWriter(ItemLogFilepath, false, Encoding.UTF8))
                 {
-                    foreach (var item in ___validItemDataList)
-                    {
-                        sw.WriteLine($"{item.Id},{item.DisplayName}");
-                    }
+                    sw.Write(sb.ToString());
                 }
                 // trueを返すとそのまま通常の処理を継続、falseで継続処理を中止
                 return true;
