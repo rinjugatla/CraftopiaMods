@@ -39,11 +39,11 @@ namespace MoreSkillPointEachMissionCategory
             if (!__instance.IsRewardTaken)
                 return;
 
-            UnityEngine.Debug.Log($"達成したミッション: {__instance.ID} {__instance.Title} {__instance.IsRewardTaken}");
+            //UnityEngine.Debug.Log($"達成したミッション: {__instance.ID} {__instance.Title} {__instance.IsRewardTaken}");
             //// 同じカテゴリのミッション
             Mission[] missionsInCategory = OcMissionManager.Inst.GetCategoryMissions(__instance.Category);
-            foreach (var mission in missionsInCategory.Where(n => n.IsRewardTaken == false && n != __instance))
-                UnityEngine.Debug.Log($"同カテゴリの未達成ミッション: {mission.ID} {mission.Title} {mission.IsRewardTaken}");
+            //foreach (var mission in missionsInCategory.Where(n => n.IsRewardTaken == false && n != __instance))
+            //    UnityEngine.Debug.Log($"同カテゴリの未達成ミッション: {mission.ID} {mission.Title} {mission.IsRewardTaken}");
 
             // 同一カテゴリの未達成ミッション数
             if (MyUtility.IsCompleatMissionCategory(__instance.Category))
