@@ -8,6 +8,8 @@ using BepInEx;
 using HarmonyLib;
 using Oc;
 using Oc.Em;
+using Oc.Item;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace SandBox
@@ -23,6 +25,10 @@ namespace SandBox
         {
             UnityEngine.Debug.Log($"{PluginName} : {PluginVersion}");
             Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+            //Harmony harmony = new Harmony(PluginGuid);
+            //MethodInfo original = AccessTools.Method(typeof(OcItemStack), "DoSwap");
+            //MethodInfo patch = AccessTools.Method(typeof(OcItemStackDoSwap), "Prefix");
+            //harmony.Patch(original, new HarmonyMethod(patch));
         }
     }
 
@@ -45,7 +51,6 @@ namespace SandBox
                 Traverse.Create(__instance).Field("_IsActivateCount").SetValue(activatedCount + 1);
                 UnityEngine.Debug.Log("消費数を+1");
             }
-
         }
     }
 
@@ -70,6 +75,15 @@ namespace SandBox
         static void Postfix()
         {
             UnityEngine.Debug.Log($"Sword!!!!");
+        }
+    }
+
+    [HarmonyPatch(typeof(OcItemStack), "DoSwap", typeof(OcItemStack))]
+    public class OcItemStackDoSwap
+    {
+        public static void Prefix(OcItemStack __instance, OcItemStack other)
+        {
+            //UnityEngine.Debug.Log($"From: {__instance.ItemName} : To{other.ItemName}");
         }
     }
 }
