@@ -34,8 +34,8 @@
     <Reference Include="0Harmony">
       <HintPath>E:\SteamLibrary\steamapps\common\Craftopia\BepInEx\core\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>E:\SteamLibrary\steamapps\common\Craftopia\Craftopia_Data\Managed\Assembly-CSharp.dll</HintPath>
+    <Reference Include="AD__Overcraft">
+      <HintPath>E:\SteamLibrary\steamapps\common\Craftopia\Craftopia_Data\Managed\AD__Overcraft.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
       <HintPath>E:\SteamLibrary\steamapps\common\Craftopia\BepInEx\core\BepInEx.dll</HintPath>
