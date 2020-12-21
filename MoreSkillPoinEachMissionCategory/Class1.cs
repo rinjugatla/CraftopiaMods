@@ -20,7 +20,7 @@ namespace MoreSkillPointEachMissionCategory
     {
         public const string PluginGuid = "me.rin_jugatla.craftopia.mod.MoreSkillPointEachMissionCategory";
         public const string PluginName = "MoreSkillPointEachMissionCategory";
-        public const string PluginVersion = "1.1.0";
+        public const string PluginVersion = "1.1.1";
 
         void Awake()
         {
