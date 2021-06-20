@@ -58,54 +58,54 @@ namespace AnyListLogger
         /// <summary>
         /// ミッションリストをログファイルに出力
         /// </summary>
-        [HarmonyPatch(typeof(OcMissionManager), "Start")]
-        public class OcMissionManagerLogger
-        {
-            static void Postfix(OcMissionManager __instance)
-            {
-                Mission[] missions = Traverse.Create(__instance).Field("validMissionList").GetValue<Mission[]>();
+        //[HarmonyPatch(typeof(OcMissionManager), "Start")]
+        //public class OcMissionManagerLogger
+        //{
+        //    static void Postfix(OcMissionManager __instance)
+        //    {
+        //        Mission[] missions = Traverse.Create(__instance).Field("validMissionList").GetValue<Mission[]>();
 
-                using (StreamWriter sw = new StreamWriter(MissionLogFilepath, false, Encoding.UTF8))
-                {
-                    foreach (var mission in missions)
-                    {
-                        sw.WriteLine($"{mission.ID},{mission.Category},{mission.Title},{mission.Desc},{mission.AchievementID},{mission.Achievement},{mission.hideFlags},{mission.RewardSkillID},{mission.RewardSkillPoint},{mission.TargetValue},{mission.WorldLevel}");
-                    }
-                }
-            }
-        }
+        //        using (StreamWriter sw = new StreamWriter(MissionLogFilepath, false, Encoding.UTF8))
+        //        {
+        //            foreach (var mission in missions)
+        //            {
+        //                sw.WriteLine($"{mission.ID},{mission.Category},{mission.Title},{mission.Desc},{mission.AchievementID},{mission.Achievement},{mission.hideFlags},{mission.RewardSkillID},{mission.RewardSkillPoint},{mission.TargetValue},{mission.WorldLevel}");
+        //            }
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// スキルリストをログファイルに出力
         /// </summary>
-        [HarmonyPatch(typeof(OcSkillManager), "Start")]
-        public class OcSkillManagerLogger
-        {
-            static void Postfix(OcSkillManager __instance)
-            {
-                string[] language = new string[] { "Japanese", "English", "Chinese (Simplified)" };
-                string[] filepathFix = new string[] { "Jp", "En", "Cn" };
+        //[HarmonyPatch(typeof(OcSkillManager), "Start")]
+        //public class OcSkillManagerLogger
+        //{
+        //    static void Postfix(OcSkillManager __instance)
+        //    {
+        //        string[] language = new string[] { "Japanese", "English", "Chinese (Simplified)" };
+        //        string[] filepathFix = new string[] { "Jp", "En", "Cn" };
 
-                string header = "ID\tCategory\tCategoryName\tTier\tSkillName\tMaxLevel\tDescription\tIconName";
-                for (int i = 0; i < language.Length; i++)
-                {
-                    LanguageManager.ChangeLanguage(language[i]);
-                    SoSkillDataList skillList = Traverse.Create(__instance).Field("skillList").GetValue<SoSkillDataList>();
-                    OcSkill[] skills = skillList.GetAll();
+        //        string header = "ID\tCategory\tCategoryName\tTier\tSkillName\tMaxLevel\tDescription\tIconName";
+        //        for (int i = 0; i < language.Length; i++)
+        //        {
+        //            LanguageManager.ChangeLanguage(language[i]);
+        //            SoSkillDataList skillList = Traverse.Create(__instance).Field("skillList").GetValue<SoSkillDataList>();
+        //            OcSkill[] skills = skillList.GetAll();
 
-                    using (StreamWriter sw = new StreamWriter(SkillLogFilepath.Replace(":LANGUAGE", filepathFix[i]), false, Encoding.UTF8))
-                    {
-                        sw.WriteLine(header);
-                        foreach (var skill in skills)
-                        {
-                            if (skill.Category == OcPlSkillCategory.None)
-                                continue;
+        //            using (StreamWriter sw = new StreamWriter(SkillLogFilepath.Replace(":LANGUAGE", filepathFix[i]), false, Encoding.UTF8))
+        //            {
+        //                sw.WriteLine(header);
+        //                foreach (var skill in skills)
+        //                {
+        //                    if (skill.Category == OcPlSkillCategory.None)
+        //                        continue;
 
-                            sw.WriteLine($"{skill.ID}\t{skill.Category}\t{skill.SkillCategoryName}\t{skill.Tier}\t{skill.SkillName}\t{skill.MaxLevel}\t{skill.OriginDesc}\t{skill.SkillIcon.name}");
-                        }
-                    }
-                }
-            }
-        }
+        //                    sw.WriteLine($"{skill.ID}\t{skill.Category}\t{skill.SkillCategoryName}\t{skill.Tier}\t{skill.SkillName}\t{skill.MaxLevel}\t{skill.OriginDesc}\t{skill.SkillIcon.name}");
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
