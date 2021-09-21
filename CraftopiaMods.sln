@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerUtility", "ServerUtil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixEars", "FixEars\FixEars.csproj", "{A2A129A0-34C9-4862-A028-D2F06DF26AB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blueprint", "Blueprint\Blueprint.csproj", "{81C2EF28-C7FF-41D2-9889-D45C7A4C563E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{A2A129A0-34C9-4862-A028-D2F06DF26AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2A129A0-34C9-4862-A028-D2F06DF26AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2A129A0-34C9-4862-A028-D2F06DF26AB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81C2EF28-C7FF-41D2-9889-D45C7A4C563E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81C2EF28-C7FF-41D2-9889-D45C7A4C563E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81C2EF28-C7FF-41D2-9889-D45C7A4C563E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81C2EF28-C7FF-41D2-9889-D45C7A4C563E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
