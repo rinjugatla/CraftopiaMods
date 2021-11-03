@@ -6,6 +6,7 @@ using Oc.Achievements;
 using Oc.Em;
 using Oc.Item;
 using Oc.Item.UI;
+using Oc.Maps;
 using Oc.Statistical;
 using System;
 using System.Collections.Generic;
@@ -1032,6 +1033,16 @@ namespace AnyHook
             if (ItemDict.Keys.Contains(id))
                 return ItemDict[id];
             return null;
+        }
+    }
+
+    [HarmonyPatch(typeof(OcWorldManager))]
+    internal class OcWorldManager_Hook
+    {
+        [HarmonyPatch("OnWorldLevelChange"), HarmonyPostfix]
+        static void OnWorldLevelChange_Postfix(OcWorldManager __instance)
+        {
+            UnityEngine.Debug.Log($"WorldLevel: {__instance.CurrentWorld.worldLevel}\nStartTime: {__instance.GameStartTime}");
         }
     }
 }
