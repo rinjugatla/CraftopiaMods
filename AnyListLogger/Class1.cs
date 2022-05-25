@@ -22,14 +22,19 @@ namespace AnyListLogger
         private const string PluginName = "AnyListLogger";
         private const string PluginVersion = "0.0.2";
 
-        private const string ItemLogFilepath = @"E:\SteamLibrary\steamapps\common\Craftopia\Log\ItemList.csv";
-        private const string MissionLogFilepath = @"E:\SteamLibrary\steamapps\common\Craftopia\Log\MissionList.csv";
-        private const string SkillLogFilepath = @"E:\SteamLibrary\steamapps\common\Craftopia\Log\SkillList:LANGUAGE.tsv";
+        private const string ItemLogFilepath = @"D:\SteamLibrary\steamapps\common\Craftopia\Log\ItemList.csv";
+        private const string MissionLogFilepath = @"D:\SteamLibrary\steamapps\common\Craftopia\Log\MissionList.csv";
+        private const string SkillLogFilepath = @"D:\SteamLibrary\steamapps\common\Craftopia\Log\SkillList:LANGUAGE.tsv";
 
         void Awake()
         {
             UnityEngine.Debug.Log($"{PluginName} : {PluginVersion}");
             Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+        }
+
+        void Update()
+        {
+            UnityEngine.Debug.Log($"{PluginName} : {PluginVersion} UPDATE");
         }
 
         /// <summary>

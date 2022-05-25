@@ -28,6 +28,7 @@ namespace AnyHook
         void Awake()
         {
             new Harmony(PluginGuid).PatchAll();
+            UnityEngine.Debug.Log($"Any hook awake");
         }
     }
 

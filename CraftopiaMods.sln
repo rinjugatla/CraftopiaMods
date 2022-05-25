@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29306.81
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftopiaMods", "CraftopiaMods\CraftopiaMods.csproj", "{E0574BD4-6F1B-495F-A9B8-E65458354841}"
 EndProject
@@ -24,6 +24,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blueprint", "Blueprint\Blueprint.csproj", "{81C2EF28-C7FF-41D2-9889-D45C7A4C563E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTA", "RTA\RTA.csproj", "{2AC62D0A-F25E-465F-A35E-608BED3A726C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DamageFormatter", "DamageFormatter\DamageFormatter.csproj", "{F6FD16D1-4DBB-4EEA-9AD3-78277D536309}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillUtility", "SkillUtility\SkillUtility.csproj", "{AF4D73B4-6C89-4EFC-8C04-B88CF60B985A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +79,14 @@ Global
 		{2AC62D0A-F25E-465F-A35E-608BED3A726C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AC62D0A-F25E-465F-A35E-608BED3A726C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AC62D0A-F25E-465F-A35E-608BED3A726C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6FD16D1-4DBB-4EEA-9AD3-78277D536309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6FD16D1-4DBB-4EEA-9AD3-78277D536309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6FD16D1-4DBB-4EEA-9AD3-78277D536309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6FD16D1-4DBB-4EEA-9AD3-78277D536309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF4D73B4-6C89-4EFC-8C04-B88CF60B985A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF4D73B4-6C89-4EFC-8C04-B88CF60B985A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF4D73B4-6C89-4EFC-8C04-B88CF60B985A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF4D73B4-6C89-4EFC-8C04-B88CF60B985A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
